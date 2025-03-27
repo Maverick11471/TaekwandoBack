@@ -1,4 +1,4 @@
-package bibid.jwt;
+package com.taekwandoback.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -76,6 +76,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContext securityContext = SecurityContextHolder.getContext();
                 securityContext.setAuthentication(authenticationToken);
                 SecurityContextHolder.setContext(securityContext);
+            }else {
+                log.info("No JWT token found in request, proceeding without authentication.");
             }
         } catch (Exception e) {
             log.error("set security context error: {}", e.getMessage());

@@ -1,6 +1,6 @@
-package bibid.config;
+package com.taekwandoback.config;
 
-import bibid.jwt.JwtAuthenticationFilter;
+import com.taekwandoback.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
-                    "/members/**"
+                    "/api/**"
                 ).permitAll();
                 authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
             })
@@ -55,7 +55,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://bibid.shop", "http://localhost:3000"));  // 허용할 도메인
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));  // 허용할 도메인
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

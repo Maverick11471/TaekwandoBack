@@ -1,3 +1,6 @@
+package com.taekwandoback.jwt;
+
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import com.taekwandoback.entity.Member;
 
 @Component  // 🅰️ Spring Bean으로 등록
 public class JwtProvider {
@@ -24,8 +28,8 @@ public class JwtProvider {
         // 🔧 JWT 생성 (HS256 알고리즘 사용)
         return Jwts.builder()
             .signWith(key, SignatureAlgorithm.HS256)  // 🔐 비밀 키로 서명
-            .setSubject(member.getMemberId())  // 🔧 JWT에 담을 회원 정보 (여기선 memberId)
-            .issuer("final backend")  // 🔧 발급자 정보
+            .setSubject(String.valueOf(member.getMemberIndex())) // 🔧 JWT에 담을 회원 정보 (여기선 memberId)
+            .issuer("bestTaekwando")  // 🔧 발급자 정보
             .issuedAt(new Date())  // 🔧 발급 일자
             .expiration(expireDate)  // 🔧 만료 일자
             .compact();  // 🔧 JWT 문자열로 반환
