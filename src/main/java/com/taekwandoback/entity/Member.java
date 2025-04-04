@@ -1,5 +1,3 @@
-
-
 package com.taekwandoback.entity;
 
 import com.taekwandoback.dto.MemberDto;
@@ -8,14 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -26,25 +22,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Member {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberIndex")
     private Long memberIndex;
 
-    @Column (unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     @Email
     private String email;
 
     @Column(nullable = false)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[\\W_]).{8,}$")
     private String password;
 
     @Column(nullable = false)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[\\W_]).{8,}$")
     private String secondPassword; // 부모용 2차 비밀번호
 
     @Column(nullable = false)
     private String username;
+
 
     @Column(nullable = false)
     private LocalDate birthday;
@@ -52,10 +48,9 @@ public class Member {
     @Column(nullable = false)
     private boolean approvedByMaster = false;
 
-    @Column(nullable = false)
-    private boolean emailVerified = false;
+    private String role;
 
-    public MemberDto toDto(){
+    public MemberDto toDto() {
         return MemberDto.builder()
             .memberIndex(this.memberIndex)
             .email(this.email)
@@ -64,7 +59,8 @@ public class Member {
             .username(this.username)
             .birthday(this.birthday)
             .approvedByMaster(this.approvedByMaster)
-            .emailVerified(this.emailVerified)
+
+            .role(this.role)
             .build();
     }
 }
