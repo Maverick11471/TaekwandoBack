@@ -160,7 +160,7 @@ public class MemberController {
 
             StringBuilder cookieHeader = new StringBuilder(
                 "ACCESS_TOKEN=" + jwtToken + "; Path=/; HttpOnly; ");
-            // Jmeter 설정으로 주석처리
+
             //            cookieHeader.append("Secure; SameSite=None");
 
             log.info("Cookie header: {}", cookieHeader.toString());
